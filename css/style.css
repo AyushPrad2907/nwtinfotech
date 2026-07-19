@@ -8,41 +8,41 @@
 /* ─── TOKENS ──────────────────────────────────────────────── */
 :root {
   /* Base palette */
-  --bg:           #0a0e1a;
-  --bg-2:         #0d1224;
-  --bg-3:         #111827;
-  --surface:      rgba(255,255,255,0.03);
-  --surface-2:    rgba(255,255,255,0.06);
-  --surface-3:    rgba(255,255,255,0.09);
+  --bg:           #ffffff;
+  --bg-2:         #f8fafc;
+  --bg-3:         #f1f5f9;
+  --surface:      rgba(15,23,42,0.02);
+  --surface-2:    rgba(15,23,42,0.05);
+  --surface-3:    rgba(15,23,42,0.08);
 
   /* Accent spectrum */
-  --blue:         #3b82f6;
-  --blue-light:   #60a5fa;
-  --violet:       #7c3aed;
-  --violet-light: #a78bfa;
-  --cyan:         #06b6d4;
-  --cyan-light:   #67e8f9;
+  --blue:         #0052cc;
+  --blue-light:   #1e40af;
+  --violet:       #6366f1;
+  --violet-light: #4f46e5;
+  --cyan:         #0ea5e9;
+  --cyan-light:   #0284c7;
   --emerald:      #10b981;
-  --pink:         #ec4899;
+  --pink:         #db2777;
 
   /* Gradients */
-  --g-main:   linear-gradient(135deg,#3b82f6 0%,#7c3aed 50%,#06b6d4 100%);
-  --g-hot:    linear-gradient(135deg,#ec4899 0%,#7c3aed 100%);
-  --g-cool:   linear-gradient(135deg,#3b82f6 0%,#06b6d4 100%);
-  --g-text:   linear-gradient(90deg,#60a5fa,#a78bfa,#67e8f9);
-  --g-border: linear-gradient(135deg,rgba(59,130,246,.4),rgba(124,58,237,.4),rgba(6,182,212,.4));
+  --g-main:   linear-gradient(135deg,#0052cc 0%,#1e40af 50%,#0ea5e9 100%);
+  --g-hot:    linear-gradient(135deg,#db2777 0%,#6366f1 100%);
+  --g-cool:   linear-gradient(135deg,#0052cc 0%,#0ea5e9 100%);
+  --g-text:   linear-gradient(90deg,#0052cc,#4f46e5,#0ea5e9);
+  --g-border: linear-gradient(135deg,rgba(0,82,204,.15),rgba(30,64,175,.15),rgba(14,165,233,.15));
 
   /* Glows */
-  --glow-blue:   0 0 40px rgba(59,130,246,.3),0 0 80px rgba(59,130,246,.1);
-  --glow-violet: 0 0 40px rgba(124,58,237,.35),0 0 80px rgba(124,58,237,.1);
-  --glow-cyan:   0 0 40px rgba(6,182,212,.3),0 0 80px rgba(6,182,212,.1);
-  --glow-card:   0 20px 60px rgba(0,0,0,.5),0 0 40px rgba(59,130,246,.08);
+  --glow-blue:   0 8px 30px rgba(0,82,204,.06);
+  --glow-violet: 0 8px 30px rgba(99,102,241,.06);
+  --glow-cyan:   0 8px 30px rgba(14,165,233,.06);
+  --glow-card:   0 12px 32px rgba(15,23,42,.04), 0 0 1px rgba(15,23,42,.08);
 
   /* Type */
-  --text:       #f1f5f9;
-  --text-2:     #94a3b8;
+  --text:       #0f172a;
+  --text-2:     #475569;
   --text-3:     #64748b;
-  --mono:       #a5f3fc;
+  --mono:       #0284c7;
 
   /* Misc */
   --radius:    14px;
