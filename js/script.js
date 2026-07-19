@@ -452,9 +452,21 @@ function initHeroInteractive() {
 }
 
 /* ─────────────────────────────────────────────────────────
+   ⏳ PRELOADER
+   ───────────────────────────────────────────────────────── */
+function initPreloader() {
+  const preloader = document.getElementById('preloader');
+  if (!preloader) return;
+  setTimeout(() => {
+    preloader.classList.add('fade-out');
+  }, 2500);
+}
+
+/* ─────────────────────────────────────────────────────────
    INIT
-───────────────────────────────────────────────────────── */
+   ───────────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
+  initPreloader();
   initNav();
   initAnimations();
   initCounters();
