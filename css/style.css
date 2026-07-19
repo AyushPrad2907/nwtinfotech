@@ -1996,4 +1996,330 @@ textarea.resize-v { resize: vertical; }
   color: var(--blue-light);
   border-color: rgba(59, 130, 246, 0.4);
   box-shadow: 0 0 16px rgba(59, 130, 246, 0.2);
-}
+}
+
+/* ─────────────────────────────────────────────────────────
+   ⏳ PRELOADER & LOADING ANIMATION
+   ───────────────────────────────────────────────────────── */
+#preloader {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: #070a13;
+  z-index: 999999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s cubic-bezier(.16,1,.3,1), visibility 0.5s ease;
+}
+#preloader.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+.preloader-content {
+  text-align: center;
+}
+.preloader-loader {
+  width: 80px; height: 80px;
+  border: 4px solid rgba(255, 255, 255, 0.03);
+  border-radius: 50%;
+  border-top: 4px solid var(--blue);
+  border-bottom: 4px solid var(--cyan);
+  animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  margin: 0 auto 28px;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.15);
+}
+.preloader-text {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.95rem;
+  color: var(--text);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #60a5fa, #67e8f9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  position: relative;
+}
+.preloader-text::after {
+  content: '';
+  position: absolute;
+  right: -12px; top: 0;
+  width: 2px; height: 100%;
+  background: var(--cyan);
+  animation: blink 0.75s step-end infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes blink {
+  from, to { background-color: transparent }
+  50% { background-color: var(--cyan); }
+}
+
+/* ─────────────────────────────────────────────────────────
+   🌀 ORBITING TECHNOLOGIES COMPONENT
+   ───────────────────────────────────────────────────────── */
+.orbit-section {
+  background: radial-gradient(circle at 50% 50%, rgba(13, 18, 36, 0.6) 0%, var(--bg) 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.02);
+  position: relative;
+  overflow: hidden;
+}
+.orbit-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 540px;
+  height: 540px;
+  margin: 40px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.orbit-center-node {
+  position: absolute;
+  width: 120px; height: 120px;
+  background: radial-gradient(circle, #0e162f 0%, #070a13 100%);
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  box-shadow: 0 0 35px rgba(59, 130, 246, 0.35);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  font-weight: 800;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  color: var(--text);
+  animation: pulse-core 4s infinite ease-in-out;
+}
+.orbit-center-node span {
+  font-size: 0.62rem;
+  font-family: 'Fira Code', monospace;
+  color: var(--cyan-light);
+  margin-top: 4px;
+}
+.orbit-ring {
+  position: absolute;
+  border: 1px dashed rgba(255, 255, 255, 0.04);
+  border-radius: 50%;
+}
+.orbit-ring-1 {
+  width: 250px; height: 250px;
+  animation: rotate-ring 25s linear infinite;
+}
+.orbit-ring-2 {
+  width: 400px; height: 400px;
+  animation: rotate-ring-rev 40s linear infinite;
+}
+.orbit-bubble {
+  position: absolute;
+  background: rgba(13, 18, 36, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 30px;
+  padding: 8px 18px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  transition: all 0.3s var(--ease);
+}
+.orbit-bubble:hover {
+  color: var(--text);
+  border-color: var(--blue-light);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+  transform: scale(1.1);
+}
+.orbit-bubble i {
+  color: var(--cyan);
+}
+
+/* Positions on Ring 1 */
+.ring-1-node-1 { top: -16px; left: calc(50% - 40px); }
+.ring-1-node-2 { bottom: -16px; left: calc(50% - 40px); }
+.ring-1-node-3 { top: calc(50% - 18px); left: -40px; }
+.ring-1-node-4 { top: calc(50% - 18px); right: -40px; }
+
+/* Positions on Ring 2 */
+.ring-2-node-1 { top: 30px; left: 30px; }
+.ring-2-node-2 { bottom: 30px; right: 30px; }
+.ring-2-node-3 { top: 30px; right: 30px; }
+.ring-2-node-4 { bottom: 30px; left: 30px; }
+
+@keyframes pulse-core {
+  0%, 100% { box-shadow: 0 0 35px rgba(59, 130, 246, 0.3); border-color: rgba(59, 130, 246, 0.3); }
+  50% { box-shadow: 0 0 55px rgba(6, 182, 212, 0.6); border-color: rgba(6, 182, 212, 0.6); }
+}
+@keyframes rotate-ring {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes rotate-ring-rev {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* ─────────────────────────────────────────────────────────
+   💎 PREMIUM SERVICES CARD REVAMP
+   ───────────────────────────────────────────────────────── */
+.premium-services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+  margin-top: 48px;
+}
+.premium-service-card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.4s var(--ease);
+  position: relative;
+}
+.premium-service-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(59, 130, 246, 0.35);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 24px rgba(59, 130, 246, 0.06);
+}
+.premium-card-banner {
+  position: relative;
+  height: 180px;
+  background: #0f1424;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+.premium-card-banner img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0.65;
+  transition: transform 0.6s var(--ease);
+}
+.premium-service-card:hover .premium-card-banner img {
+  transform: scale(1.08);
+  opacity: 0.85;
+}
+.premium-card-discount {
+  position: absolute;
+  top: 16px; left: 16px;
+  background: var(--pink);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 30px;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 12px rgba(236, 72, 153, 0.35);
+}
+.premium-card-body {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.premium-card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+.premium-card-desc {
+  font-size: 0.88rem;
+  color: var(--text-2);
+  font-weight: 300;
+  line-height: 1.6;
+  margin-bottom: 24px;
+  flex-grow: 1;
+}
+.premium-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+.premium-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.74rem;
+  font-family: 'Fira Code', monospace;
+  color: var(--cyan-light);
+}
+.premium-meta-item.delivery {
+  color: var(--blue-light);
+}
+.premium-card-pricing {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.premium-price-curr {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--text);
+}
+.premium-price-orig {
+  font-size: 0.95rem;
+  color: var(--text-3);
+  text-decoration: line-through;
+}
+.premium-price-save {
+  font-size: 0.74rem;
+  color: var(--emerald);
+  font-weight: 600;
+}
+.premium-card-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* ─────────────────────────────────────────────────────────
+   💳 PREMIUM SPLIT CHECKOUT LAYOUT
+   ───────────────────────────────────────────────────────── */
+.premium-checkout-container {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 40px;
+  align-items: start;
+  margin-top: 24px;
+}
+@media (max-width: 1024px) {
+  .premium-checkout-container {
+    grid-template-columns: 1fr;
+  }
+}
+.premium-checkout-form-card {
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  padding: 36px;
+}
+.premium-checkout-summary-card {
+  background: linear-gradient(180deg, rgba(59, 130, 246, 0.03) 0%, rgba(124, 58, 237, 0.01) 100%);
+  border: 1px solid rgba(59, 130, 246, 0.15);
+  border-radius: 24px;
+  padding: 36px;
+  position: sticky;
+  top: 100px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
