@@ -463,6 +463,41 @@ function initPreloader() {
 }
 
 /* ─────────────────────────────────────────────────────────
+   DYNAMIC TYPING EFFECT
+   ───────────────────────────────────────────────────────── */
+function initDynamicTechText() {
+  const target = document.getElementById('dynamic-tech-text');
+  if (!target) return;
+  const words = ['Technology', 'Innovation', 'AI Integration', 'Modern Code', 'Expert Design'];
+  let wordIdx = 0;
+  let charIdx = 0;
+  let isDeleting = false;
+
+  function type() {
+    const currentWord = words[wordIdx];
+    if (isDeleting) {
+      target.textContent = currentWord.substring(0, charIdx - 1);
+      charIdx--;
+    } else {
+      target.textContent = currentWord.substring(0, charIdx + 1);
+      charIdx++;
+    }
+
+    let speed = isDeleting ? 40 : 80;
+    if (!isDeleting && charIdx === currentWord.length) {
+      speed = 1800;
+      isDeleting = true;
+    } else if (isDeleting && charIdx === 0) {
+      isDeleting = false;
+      wordIdx = (wordIdx + 1) % words.length;
+      speed = 400;
+    }
+    setTimeout(type, speed);
+  }
+  type();
+}
+
+/* ─────────────────────────────────────────────────────────
    INIT
    ───────────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
@@ -476,4 +511,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initSmoothScroll();
   initDesignEngine();
   initHeroInteractive();
+  initDynamicTechText();
 });

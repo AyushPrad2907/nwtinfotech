@@ -327,6 +327,14 @@ button{cursor:pointer;font-family:inherit;border:none;outline:none}
     linear-gradient(90deg,rgba(59,130,246,.04) 1px,transparent 1px);
   background-size:60px 60px;
 }
+.hero-video-bg{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  min-width:100%;min-height:100%;
+  width:auto;height:auto;
+  z-index:1;opacity:.14;
+  pointer-events:none;object-fit:cover;
+}
 .page-hero .container{position:relative;z-index:2}
 .page-hero h1{
   font-size:clamp(2.4rem,5.5vw,4rem);
@@ -805,6 +813,17 @@ button{cursor:pointer;font-family:inherit;border:none;outline:none}
 .hero-text h1{
   font-size:clamp(2.6rem,5.5vw,4.6rem);font-weight:900;
   line-height:1.03;letter-spacing:-.04em;margin-bottom:22px;
+}
+.tech-highlight {
+  color: var(--cyan);
+  border-right: 3px solid var(--cyan);
+  padding-right: 4px;
+  animation: typing-blink 0.75s step-end infinite;
+  white-space: nowrap;
+}
+@keyframes typing-blink {
+  from, to { border-color: transparent }
+  50% { border-color: var(--cyan); }
 }
 .hero-text p{
   font-size:1.12rem;color:var(--text-2);line-height:1.8;
