@@ -217,19 +217,76 @@ function initCheckout() {
 
   // Form submit
   const form = document.getElementById('checkout-form');
-  form?.addEventListener('submit', e => {
+  const submitBtn = form?.querySelector('button[type="submit"]');
+
+  form?.addEventListener('submit', async e => {
     e.preventDefault();
     if (!form.checkValidity()) {
       form.reportValidity();
       showToast('Form Incomplete', 'Please fill in all required fields.');
       return;
     }
-    if (!document.getElementById('theme-select').value) {
+    
+    const themeSelect = document.getElementById('theme-select');
+    if (!themeSelect || !themeSelect.value) {
       showToast('Select Theme', 'Please choose a design style preference.');
       return;
     }
-    document.getElementById('success-popup').classList.add('visible');
-    setTimeout(() => clearCart(), 1500);
+
+    const cart = getCart();
+    if (!cart) {
+      showToast('Cart Empty', 'Please select a service before placing an order.');
+      return;
+    }
+
+    // Get input values
+    const orderData = {
+      name: document.getElementById('client-name').value,
+      email: document.getElementById('client-email').value,
+      phone: document.getElementById('client-phone').value,
+      service: cart.service,
+      plan: cart.plan,
+      price: cart.price,
+      design_theme: themeSelect.value
+    };
+
+    // Get screenshot file
+    const fileInput = document.querySelector('input[name="payment_screenshot"]');
+    const file = fileInput?.files[0] || null;
+
+    // Set loading state
+    const originalBtnText = submitBtn ? submitBtn.innerHTML : 'Submit Order';
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '⚡ Processing Order...';
+    }
+
+    try {
+      // Submit order & upload file to Supabase
+      const result = await submitOrderToSupabase(orderData, file);
+      
+      // On success
+      if (submitBtn) submitBtn.innerHTML = '✓ Success!';
+      
+      // Update success popup details dynamically if elements exist
+      const popValName = document.querySelector('.popup-info-box .popup-info-val');
+      if (popValName) popValName.textContent = orderData.name;
+      
+      document.getElementById('success-popup').classList.add('visible');
+      setTimeout(() => {
+        clearCart();
+        updateCartBadge();
+      }, 1500);
+      
+    } catch (err) {
+      console.error(err);
+      showToast('Order Failed', err.message || 'Something went wrong. Please try again.');
+      // Restore button
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
+      }
+    }
   });
 }
 
