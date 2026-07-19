@@ -57,10 +57,95 @@
 <!-- CHECKOUT LAYOUT -->
 <section class="section-sm">
   <div class="container">
-    <div class="checkout-layout">
+    <div class="premium-checkout-container">
+ 
+      <!-- LEFT COLUMN: CHECKOUT FORM -->
+      <div class="premium-checkout-form-card" id="checkout-form-section">
+        <h3>Project Details &amp; Payment</h3>
+        <form id="checkout-form" novalidate>
 
-      <!-- ORDER SUMMARY -->
-      <div>
+          <div class="form-group">
+            <label for="theme-select">Theme / Style Preference *</label>
+            <select id="theme-select" name="theme" required>
+              <option value="" disabled selected>Select a Theme</option>
+              <option value="Corporate">Corporate — Professional &amp; Formal</option>
+              <option value="Modern">Modern — Clean &amp; Minimal</option>
+              <option value="Creative">Creative — Bold &amp; Expressive</option>
+              <option value="Minimal">Minimal — Simple &amp; Elegant</option>
+              <option value="Dark">Dark — Dark Mode Aesthetic</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="client-name">Full Name *</label>
+            <input type="text" id="client-name" name="name" placeholder="John Doe" required/>
+          </div>
+
+          <div class="form-group">
+            <label for="client-email">Email Address *</label>
+            <input type="email" id="client-email" name="email" placeholder="you@example.com" required/>
+          </div>
+
+          <div class="form-group">
+            <label for="client-phone">Phone Number *</label>
+            <input type="tel" id="client-phone" name="phone" placeholder="+91 98765 43210" required/>
+          </div>
+
+          <div class="form-group">
+            <label>Voice Message (Optional)</label>
+            <p class="form-hint">Upload an audio file explaining your project requirements. Helps us understand your vision faster.</p>
+            <div class="file-upload-area">
+              <input type="file" accept=".mp3,.wav,audio/*" name="voice_message"/>
+              <div class="up-icon">&#127897;</div>
+              <p>Click to upload or drag &amp; drop</p>
+              <p class="file-hint">MP3, WAV — max 20MB</p>
+              <div class="file-name"></div>
+            </div>
+          </div>
+
+          <hr class="section-divider"/>
+
+          <div class="qr-section">
+            <h4>Scan &amp; Pay Advance</h4>
+            <p>Scan this QR code to pay the 30% advance via UPI and kickstart your project.</p>
+            <div class="qr-img-wrap">
+              <img src="assets/qr.png" alt="UPI QR Code — NWT Infotech" width="160" height="160"/>
+            </div>
+            <div class="upi-row">
+              UPI ID: <strong class="upi-id">nwtinfotech@upi</strong>
+            </div>
+            <div class="qr-amount-box">
+              <div class="qr-amount-label">AMOUNT TO PAY (30%)</div>
+              <div id="qr-advance-display" class="qr-advance-amount">—</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Upload Payment Screenshot *</label>
+            <p class="form-hint">After completing UPI payment, upload a screenshot as proof to process your order.</p>
+            <div class="file-upload-area">
+              <input type="file" accept="image/*" name="payment_screenshot" required/>
+              <div class="up-icon">&#128247;</div>
+              <p>Click to upload payment screenshot</p>
+              <p class="file-hint">JPG, PNG, WebP</p>
+              <div class="file-name"></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="project-notes">Additional Notes (Optional)</label>
+            <textarea id="project-notes" name="notes" rows="4" placeholder="Describe specific requirements, references, or questions..." class="resize-v"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-full btn-lg">
+            Submit Order
+          </button>
+          <p class="form-secure-note">Your information is secure. We will contact you within 24 hours.</p>
+        </form>
+      </div>
+
+      <!-- RIGHT COLUMN: ORDER SUMMARY (STICKY) -->
+      <div class="premium-checkout-summary-card">
         <div class="order-summary" id="order-summary-wrap">
           <h3>Order Summary</h3>
           <div id="order-summary-content">
@@ -76,118 +161,31 @@
         </div>
 
         <!-- How It Works -->
-        <div class="hiw-box">
-          <h4 class="hiw-title">How It Works</h4>
+        <div class="hiw-box" style="margin-top: 32px; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 24px;">
+          <h4 class="hiw-title" style="margin-bottom: 18px; font-size: 1rem; color: var(--text);">How It Works</h4>
           <div class="hiw-steps">
-            <div class="hiw-step">
-              <div class="hiw-num">1</div>
+            <div class="hiw-step" style="display: flex; gap: 14px; margin-bottom: 16px;">
+              <div class="hiw-num" style="background: var(--blue); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0;">1</div>
               <div>
-                <div class="hiw-step-title">Submit Your Order</div>
-                <div class="hiw-step-desc">Fill in project details and requirements below.</div>
+                <div class="hiw-step-title" style="font-weight: 600; font-size: 0.88rem; color: var(--text);">Submit Your Order</div>
+                <div class="hiw-step-desc" style="font-size: 0.78rem; color: var(--text-2);">Fill in project details and requirements.</div>
               </div>
             </div>
-            <div class="hiw-step">
-              <div class="hiw-num">2</div>
+            <div class="hiw-step" style="display: flex; gap: 14px; margin-bottom: 16px;">
+              <div class="hiw-num" style="background: var(--blue); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0;">2</div>
               <div>
-                <div class="hiw-step-title">Pay 30% Advance</div>
-                <div class="hiw-step-desc">Scan QR, pay via UPI, upload screenshot.</div>
+                <div class="hiw-step-title" style="font-weight: 600; font-size: 0.88rem; color: var(--text);">Pay 30% Advance</div>
+                <div class="hiw-step-desc" style="font-size: 0.78rem; color: var(--text-2);">Scan QR, pay via UPI, upload screenshot.</div>
               </div>
             </div>
-            <div class="hiw-step">
-              <div class="hiw-num">3</div>
+            <div class="hiw-step" style="display: flex; gap: 14px;">
+              <div class="hiw-num" style="background: var(--blue); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0;">3</div>
               <div>
-                <div class="hiw-step-title">We Contact You</div>
-                <div class="hiw-step-desc">Our team reaches out within 24 hours to begin.</div>
+                <div class="hiw-step-title" style="font-weight: 600; font-size: 0.88rem; color: var(--text);">We Contact You</div>
+                <div class="hiw-step-desc" style="font-size: 0.78rem; color: var(--text-2);">Our team reaches out within 24 hours to begin.</div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      <!-- CHECKOUT FORM -->
-      <div id="checkout-form-section">
-        <div class="checkout-form-wrap">
-          <h3>Project Details &amp; Payment</h3>
-          <form id="checkout-form" novalidate>
-
-            <div class="form-group">
-              <label for="theme-select">Theme / Style Preference *</label>
-              <select id="theme-select" name="theme" required>
-                <option value="" disabled selected>Select a Theme</option>
-                <option value="Corporate">Corporate — Professional &amp; Formal</option>
-                <option value="Modern">Modern — Clean &amp; Minimal</option>
-                <option value="Creative">Creative — Bold &amp; Expressive</option>
-                <option value="Minimal">Minimal — Simple &amp; Elegant</option>
-                <option value="Dark">Dark — Dark Mode Aesthetic</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="client-name">Full Name *</label>
-              <input type="text" id="client-name" name="name" placeholder="John Doe" required/>
-            </div>
-
-            <div class="form-group">
-              <label for="client-email">Email Address *</label>
-              <input type="email" id="client-email" name="email" placeholder="you@example.com" required/>
-            </div>
-
-            <div class="form-group">
-              <label for="client-phone">Phone Number *</label>
-              <input type="tel" id="client-phone" name="phone" placeholder="+91 98765 43210" required/>
-            </div>
-
-            <div class="form-group">
-              <label>Voice Message (Optional)</label>
-              <p class="form-hint">Upload an audio file explaining your project requirements. Helps us understand your vision faster.</p>
-              <div class="file-upload-area">
-                <input type="file" accept=".mp3,.wav,audio/*" name="voice_message"/>
-                <div class="up-icon">&#127897;</div>
-                <p>Click to upload or drag &amp; drop</p>
-                <p class="file-hint">MP3, WAV — max 20MB</p>
-                <div class="file-name"></div>
-              </div>
-            </div>
-
-            <hr class="section-divider"/>
-
-            <div class="qr-section">
-              <h4>Scan &amp; Pay Advance</h4>
-              <p>Scan this QR code to pay the 30% advance via UPI and kickstart your project.</p>
-              <div class="qr-img-wrap">
-                <img src="assets/qr.png" alt="UPI QR Code — NWT Infotech" width="160" height="160"/>
-              </div>
-              <div class="upi-row">
-                UPI ID: <strong class="upi-id">nwtinfotech@upi</strong>
-              </div>
-              <div class="qr-amount-box">
-                <div class="qr-amount-label">AMOUNT TO PAY (30%)</div>
-                <div id="qr-advance-display" class="qr-advance-amount">—</div>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label>Upload Payment Screenshot *</label>
-              <p class="form-hint">After completing UPI payment, upload a screenshot as proof to process your order.</p>
-              <div class="file-upload-area">
-                <input type="file" accept="image/*" name="payment_screenshot" required/>
-                <div class="up-icon">&#128247;</div>
-                <p>Click to upload payment screenshot</p>
-                <p class="file-hint">JPG, PNG, WebP</p>
-                <div class="file-name"></div>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="project-notes">Additional Notes (Optional)</label>
-              <textarea id="project-notes" name="notes" rows="4" placeholder="Describe specific requirements, references, or questions..." class="resize-v"></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-primary btn-full btn-lg">
-              Submit Order
-            </button>
-            <p class="form-secure-note">Your information is secure. We will contact you within 24 hours.</p>
-          </form>
         </div>
       </div>
 
