@@ -78,7 +78,8 @@ async function submitOrderToSupabase(orderData, file) {
   const combinedThemePayload = JSON.stringify({
     theme: orderData.design_theme,
     notes: orderData.notes || '',
-    voice_url: voiceUrl
+    voice_url: voiceUrl,
+    utr: orderData.utr || ''
   });
 
   // 3. Insert record into Postgres 'orders' table
@@ -126,8 +127,9 @@ async function fetchOrdersFromSupabase() {
           price: 150000,
           design_theme: JSON.stringify({
             theme: "Modern",
-            notes: "Need a high-performance modern portfolio website with smooth GSAP animations and clear call-to-actions.",
-            voice_url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+            notes: "Need a high-performance modern portfolio website with GSAP animations.",
+            voice_url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+            utr: "987654321012"
           }),
           screenshot_url: "https://images.unsplash.com/photo-1557200134-90327ee9fafa?auto=format&fit=crop&w=500&q=80",
           created_at: new Date(Date.now() - 3600000 * 3).toISOString()
@@ -142,8 +144,9 @@ async function fetchOrdersFromSupabase() {
           price: 85000,
           design_theme: JSON.stringify({
             theme: "Creative",
-            notes: "Targeting tech professionals. Prefer vibrant gradients and bold modern typography.",
-            voice_url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+            notes: "Targeting tech professionals. Prefer gradients.",
+            voice_url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+            utr: "887766554433"
           }),
           screenshot_url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=500&q=80",
           created_at: new Date(Date.now() - 3600000 * 20).toISOString()
@@ -158,8 +161,9 @@ async function fetchOrdersFromSupabase() {
           price: 45000,
           design_theme: JSON.stringify({
             theme: "Minimal",
-            notes: "Boost local search visibility. Here is the list of target keywords for our law firm.",
-            voice_url: ""
+            notes: "Boost local search visibility.",
+            voice_url: "",
+            utr: "112233445566"
           }),
           screenshot_url: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=500&q=80",
           created_at: new Date(Date.now() - 3600000 * 48).toISOString()

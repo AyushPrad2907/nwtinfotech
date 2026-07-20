@@ -649,6 +649,7 @@
       let additionalNotes = 'No additional notes provided.';
       let voiceUrl = '';
       let statusVal = 'New';
+      let utrVal = 'N/A';
 
       try {
         if (order.design_theme && (order.design_theme.trim().startsWith('{') || order.design_theme.trim().startsWith('['))) {
@@ -657,6 +658,7 @@
           additionalNotes = parsed.notes || 'No additional notes provided.';
           voiceUrl = parsed.voice_url || '';
           statusVal = parsed.status || 'New';
+          utrVal = parsed.utr || 'N/A';
         } else {
           themeName = order.design_theme || 'None';
         }
@@ -686,7 +688,10 @@
         </td>
         <td>
           <div style="font-weight: 700; color: var(--text);">₹${totalVal.toLocaleString('en-IN')}</div>
-          <div style="font-size: 0.75rem; color: #10b981;">Adv (30%): ₹${advanceVal.toLocaleString('en-IN')}</div>
+          <div style="font-size: 0.75rem; color: #10b981; margin-bottom: 6px;">Adv (30%): ₹${advanceVal.toLocaleString('en-IN')}</div>
+          <div style="font-size: 0.7rem; font-family: monospace; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); padding: 4px 8px; border-radius: 6px; display: inline-block; color: var(--text-3); font-weight: 600;" title="UTR / Transaction ID">
+            UTR: ${escapeHTML(utrVal)}
+          </div>
         </td>
         <td>
           <div style="font-weight: 700; color: var(--blue-light); margin-bottom: 6px;">${escapeHTML(themeName)}</div>

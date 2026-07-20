@@ -242,6 +242,7 @@ function initCheckout() {
     // Get input values
     const notesInput = document.getElementById('project-notes');
     const voiceInput = document.querySelector('input[name="voice_message"]');
+    const utrInput = document.getElementById('utr-number');
     
     const orderData = {
       name: document.getElementById('client-name').value,
@@ -252,7 +253,8 @@ function initCheckout() {
       price: cart.price,
       design_theme: themeSelect.value,
       notes: notesInput ? notesInput.value : '',
-      voiceFile: voiceInput?.files[0] || null
+      voiceFile: voiceInput?.files[0] || null,
+      utr: utrInput ? utrInput.value : ''
     };
 
     // Get screenshot file
