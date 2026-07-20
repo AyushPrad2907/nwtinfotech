@@ -463,7 +463,10 @@
 
     <!-- Controls -->
     <div class="controls-row">
-      <input type="text" id="search-bar" class="search-input" placeholder="Search customer name, email, or service..."/>
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap; width:100%; max-width:500px;">
+        <input type="text" id="search-bar" class="search-input" placeholder="Search customer name, email, or service..." style="flex-grow:1; max-width:320px;"/>
+        <button id="export-csv-btn" class="btn btn-ghost" style="border: 1px solid var(--border-color); height: 42px; font-weight: 600; font-size: 0.88rem; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px;">📥 Export to CSV</button>
+      </div>
       <div style="font-size: 0.85rem; color: var(--text-3);" id="results-count">Showing all records</div>
     </div>
 
@@ -540,6 +543,7 @@
     
     document.getElementById('refresh-btn').addEventListener('click', loadDashboard);
     document.getElementById('search-bar').addEventListener('input', filterOrders);
+    document.getElementById('export-csv-btn')?.addEventListener('click', exportToCSV);
     document.getElementById('logout-btn')?.addEventListener('click', () => {
       sessionStorage.removeItem('nwt_authenticated');
       window.location.reload();
@@ -794,6 +798,61 @@
       console.error(err);
       alert('Failed to update status: ' + err.message);
     }
+  }
+
+  function exportToCSV() {
+    if (allOrders.length === 0) {
+      alert("No orders available to export.");
+      return;
+    }
+    
+    const headers = ["Order Date", "Name", "Email", "Phone", "Service", "Plan", "Price", "Theme", "Notes", "Status", "Screenshot URL"];
+    const rows = allOrders.map(order => {
+      let themeName = 'None';
+      let additionalNotes = '';
+      let statusVal = 'New';
+      try {
+        if (order.design_theme && (order.design_theme.trim().startsWith('{') || order.design_theme.trim().startsWith('['))) {
+          const parsed = JSON.parse(order.design_theme);
+          themeName = parsed.theme || 'None';
+          additionalNotes = parsed.notes || '';
+          statusVal = parsed.status || 'New';
+        } else {
+          themeName = order.design_theme || 'None';
+        }
+      } catch (e) {
+        themeName = order.design_theme || 'None';
+      }
+      
+      return [
+        order.created_at ? new Date(order.created_at).toISOString() : '',
+        order.name || '',
+        order.email || '',
+        order.phone || '',
+        order.service || '',
+        order.plan || '',
+        order.price || 0,
+        themeName,
+        additionalNotes,
+        statusVal,
+        order.screenshot_url || ''
+      ];
+    });
+
+    // Create CSV content
+    const csvRows = [headers.join(",")];
+    rows.forEach(r => {
+      csvRows.push(r.map(val => `"${String(val).replace(/"/g, '""')}"`).join(","));
+    });
+    
+    const csvContent = "data:text/csv;charset=utf-8," + csvRows.join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `nwt_orders_export_${Date.now()}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 </script>
 </body>
