@@ -144,8 +144,11 @@ function initServiceButtons() {
 }
 
 /* ─────────────────────────────────────────────────────────
-   CHECKOUT
+   CHECKOUT & DYNAMIC UPI QR GENERATION
 ───────────────────────────────────────────────────────── */
+const GLOBAL_UPI_ID = 'nwtinfotech@upi';
+const GLOBAL_PAYEE_NAME = 'NWT Infotech';
+
 function initCheckout() {
   if (!document.getElementById('order-summary-wrap')) return;
 
@@ -172,6 +175,22 @@ function initCheckout() {
   document.getElementById('summary-plan').textContent    = cart.plan;
   document.getElementById('summary-price').textContent   = fmt(cart.price);
   document.getElementById('advance-amount').textContent  = fmt(advance);
+
+  // Update QR advance display text
+  const qrDisplay = document.getElementById('qr-advance-display');
+  if (qrDisplay) qrDisplay.textContent = fmt(advance);
+
+  // Update UPI ID text
+  const upiText = document.getElementById('upi-id-display');
+  if (upiText) upiText.textContent = GLOBAL_UPI_ID;
+
+  // Generate dynamic 30% UPI QR Code
+  const qrImg = document.getElementById('qr-code-img');
+  if (qrImg) {
+    const upiUri = `upi://pay?pa=${encodeURIComponent(GLOBAL_UPI_ID)}&pn=${encodeURIComponent(GLOBAL_PAYEE_NAME)}&am=${advance}&cu=INR&tn=${encodeURIComponent('30% Advance - ' + cart.service)}`;
+    const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=10&data=${encodeURIComponent(upiUri)}`;
+    qrImg.src = qrApiUrl;
+  }
 
   // Restore visibility
   document.getElementById('checkout-form-section').style.display = 'block';
