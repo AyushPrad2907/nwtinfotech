@@ -41,10 +41,18 @@
   .stat-card {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 24px;
     position: relative;
     overflow: hidden;
+    backdrop-filter: blur(10px);
+    transition: var(--t);
+  }
+
+  .stat-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
   }
 
   .stat-card::before {
@@ -107,9 +115,28 @@
   .orders-table-wrapper {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: 16px;
     overflow-x: auto;
     margin-bottom: 40px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Custom scrollbar */
+  .orders-table-wrapper::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .orders-table-wrapper::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.01);
+    border-radius: 16px;
+  }
+  .orders-table-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+  }
+  .orders-table-wrapper::-webkit-scrollbar-thumb:hover {
+    background: var(--blue);
   }
 
   .orders-table {
@@ -135,6 +162,14 @@
     border-bottom: 1px solid var(--border-color);
     color: var(--text-2);
     vertical-align: middle;
+  }
+
+  .orders-table tr {
+    transition: var(--t);
+  }
+
+  .orders-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.015);
   }
 
   .orders-table tr:last-child td {
@@ -333,6 +368,12 @@
     margin-top: 16px;
     display: none;
   }
+  #logout-btn:hover {
+    background: rgba(239, 68, 68, 0.2) !important;
+    border-color: #ef4444 !important;
+    color: #fff !important;
+    box-shadow: 0 0 14px rgba(239, 68, 68, 0.2);
+  }
 </style>
 </head>
 <body>
@@ -391,6 +432,7 @@
       <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
         <a href="index.html" class="btn btn-ghost" style="border: 1px solid var(--border-color); display: inline-flex; align-items: center; text-decoration: none;">← Back to Home</a>
         <button id="refresh-btn" class="btn btn-primary">⚡ Refresh Data</button>
+        <button id="logout-btn" class="btn btn-danger" style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); color: #f87171; border-radius: 8px; padding: 10px 18px; font-weight: 600; font-size: 0.9rem; transition: var(--t); cursor: pointer; display: inline-flex; align-items: center; height: 42px;">Logout</button>
       </div>
     </div>
 
@@ -497,6 +539,10 @@
     
     document.getElementById('refresh-btn').addEventListener('click', loadDashboard);
     document.getElementById('search-bar').addEventListener('input', filterOrders);
+    document.getElementById('logout-btn')?.addEventListener('click', () => {
+      sessionStorage.removeItem('nwt_authenticated');
+      window.location.reload();
+    });
   });
 
   async function handleLogin(e) {
