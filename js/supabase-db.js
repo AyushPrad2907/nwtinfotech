@@ -29,8 +29,8 @@ async function submitOrderToSupabase(orderData, file) {
   // 1. Upload receipt screenshot to Storage bucket if provided
   if (file) {
     const fileExt = file.name.split('.').pop();
-    const fileName = \\_\.\\;
-    const filePath = \\\;
+    const fileName = `${Date.now()}_${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
+    const filePath = `${fileName}`;
 
     const { data: uploadData, error: uploadError } = await client.storage
       .from('receipts')
@@ -38,7 +38,7 @@ async function submitOrderToSupabase(orderData, file) {
 
     if (uploadError) {
       console.error('Storage upload error:', uploadError);
-      throw new Error(\Failed to upload screenshot: \\);
+      throw new Error(`Failed to upload screenshot: ${uploadError.message}`);
     }
 
     // Get public URL
@@ -67,8 +67,73 @@ async function submitOrderToSupabase(orderData, file) {
 
   if (error) {
     console.error('Database insert error:', error);
-    throw new Error(\Failed to save order to database: \\);
+    throw new Error(`Failed to save order to database: ${error.message}`);
   }
 
   return { success: true, data };
 }
+
+/**
+ * Fetches all orders from the Supabase Postgres table.
+ */
+async function fetchOrdersFromSupabase() {
+  const client = getSupabaseClient();
+  if (!client) {
+    // Return mock data for demo mode
+    return {
+      success: true,
+      mock: true,
+      data: [
+        {
+          id: 1,
+          name: "Rajesh Kumar",
+          email: "rajesh@example.com",
+          phone: "+91 98765 12345",
+          service: "Website Development",
+          plan: "Premium Plan",
+          price: 150000,
+          design_theme: "Modern",
+          screenshot_url: "https://images.unsplash.com/photo-1557200134-90327ee9fafa?auto=format&fit=crop&w=500&q=80",
+          created_at: new Date(Date.now() - 3600000 * 3).toISOString()
+        },
+        {
+          id: 2,
+          name: "Sanjana Mehta",
+          email: "sanjana@mehta.org",
+          phone: "+91 91234 56789",
+          service: "Digital Marketing",
+          plan: "Standard Plan",
+          price: 85000,
+          design_theme: "Creative",
+          screenshot_url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=500&q=80",
+          created_at: new Date(Date.now() - 3600000 * 20).toISOString()
+        },
+        {
+          id: 3,
+          name: "Vikram Singh",
+          email: "vikram@singh.in",
+          phone: "+91 99887 76655",
+          service: "SEO / SMO",
+          plan: "Growth Plan",
+          price: 45000,
+          design_theme: "Minimal",
+          screenshot_url: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=500&q=80",
+          created_at: new Date(Date.now() - 3600000 * 48).toISOString()
+        }
+      ]
+    };
+  }
+
+  const { data, error } = await client
+    .from('orders')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error('Database fetch error:', error);
+    throw new Error(`Failed to fetch orders from database: ${error.message}`);
+  }
+
+  return { success: true, data };
+}
+

@@ -501,6 +501,12 @@ function initDynamicTechText() {
    INIT
    ───────────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
+  // Check for admin query parameter to redirect to admin dashboard
+  if (window.location.search.toLowerCase().includes('admin')) {
+    window.location.href = 'admin.html';
+    return;
+  }
+
   initPreloader();
   initNav();
   initAnimations();
