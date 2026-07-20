@@ -461,6 +461,22 @@
       </div>
     </div>
 
+    <!-- Analytics Section -->
+    <div class="stats-grid" id="analytics-section" style="margin-bottom: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+      <div class="stat-card" style="grid-column: span 1; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px;">
+        <div class="stat-label">🔥 Service Popularity</div>
+        <div id="service-breakdown-list" style="margin-top: 12px; display: flex; flex-direction: column; gap: 14px;">
+          <div style="font-size: 0.82rem; color: var(--text-3);">Loading popularity metrics...</div>
+        </div>
+      </div>
+      <div class="stat-card" style="grid-column: span 1; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px;">
+        <div class="stat-label">📈 Funnel Conversion &amp; Status</div>
+        <div id="status-breakdown-list" style="margin-top: 12px; display: flex; flex-direction: column; gap: 14px;">
+          <div style="font-size: 0.82rem; color: var(--text-3);">Loading funnel status...</div>
+        </div>
+      </div>
+    </div>
+
     <!-- Controls -->
     <div class="controls-row">
       <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap; width:100%; max-width:500px;">
@@ -710,6 +726,82 @@
 
     document.getElementById('stat-revenue').textContent = `₹${totalRev.toLocaleString('en-IN')}`;
     document.getElementById('stat-advance').textContent = `₹${totalAdv.toLocaleString('en-IN')}`;
+
+    // Compute service breakdown
+    const services = {};
+    const statuses = {};
+    const totalCount = orders.length;
+
+    orders.forEach(order => {
+      // Service
+      const s = order.service || 'Unknown';
+      services[s] = (services[s] || 0) + 1;
+
+      // Status
+      let statusVal = 'New';
+      try {
+        if (order.design_theme && (order.design_theme.trim().startsWith('{') || order.design_theme.trim().startsWith('['))) {
+          const parsed = JSON.parse(order.design_theme);
+          statusVal = parsed.status || 'New';
+        }
+      } catch (e) {}
+      statuses[statusVal] = (statuses[statusVal] || 0) + 1;
+    });
+
+    // Render service breakdown
+    const serviceList = document.getElementById('service-breakdown-list');
+    if (serviceList) {
+      if (totalCount === 0) {
+        serviceList.innerHTML = '<div style="font-size: 0.82rem; color: var(--text-3);">No data available.</div>';
+      } else {
+        serviceList.innerHTML = Object.entries(services)
+          .sort((a, b) => b[1] - a[1])
+          .map(([name, count]) => {
+            const pct = Math.round((count / totalCount) * 100);
+            return `
+              <div>
+                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; color: var(--text-2); margin-bottom: 4px;">
+                  <span>${escapeHTML(name)}</span>
+                  <span style="font-weight: 700; color: var(--text);">${count} (${pct}%)</span>
+                </div>
+                <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden;">
+                  <div style="width: ${pct}%; height: 100%; background: var(--blue); border-radius: 3px;"></div>
+                </div>
+              </div>
+            `;
+          }).join('');
+      }
+    }
+
+    // Render status breakdown
+    const statusList = document.getElementById('status-breakdown-list');
+    if (statusList) {
+      if (totalCount === 0) {
+        statusList.innerHTML = '<div style="font-size: 0.82rem; color: var(--text-3);">No data available.</div>';
+      } else {
+        statusList.innerHTML = Object.entries(statuses)
+          .sort((a, b) => b[1] - a[1])
+          .map(([name, count]) => {
+            const pct = Math.round((count / totalCount) * 100);
+            let barColor = 'var(--blue)';
+            if (name === 'Completed') barColor = '#10b981';
+            if (name === 'Cancelled') barColor = '#ef4444';
+            if (name === 'In Progress') barColor = '#f59e0b';
+            
+            return `
+              <div>
+                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; color: var(--text-2); margin-bottom: 4px;">
+                  <span>${escapeHTML(name)}</span>
+                  <span style="font-weight: 700; color: var(--text);">${count} (${pct}%)</span>
+                </div>
+                <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden;">
+                  <div style="width: ${pct}%; height: 100%; background: ${barColor}; border-radius: 3px;"></div>
+                </div>
+              </div>
+            `;
+          }).join('');
+      }
+    }
   }
 
   function filterOrders() {
