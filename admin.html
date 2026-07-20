@@ -578,6 +578,23 @@
       const totalVal = order.price || 0;
       const advanceVal = Math.round(totalVal * 0.3);
 
+      let themeName = 'None';
+      let additionalNotes = 'No additional notes provided.';
+      let voiceUrl = '';
+
+      try {
+        if (order.design_theme && (order.design_theme.trim().startsWith('{') || order.design_theme.trim().startsWith('['))) {
+          const parsed = JSON.parse(order.design_theme);
+          themeName = parsed.theme || 'None';
+          additionalNotes = parsed.notes || 'No additional notes provided.';
+          voiceUrl = parsed.voice_url || '';
+        } else {
+          themeName = order.design_theme || 'None';
+        }
+      } catch (e) {
+        themeName = order.design_theme || 'None';
+      }
+
       const screenshotTd = order.screenshot_url 
         ? `<img src="${order.screenshot_url}" class="receipt-thumbnail" onclick="openModal('${order.name}', '${order.screenshot_url}')" alt="Receipt"/>` 
         : `<span class="no-receipt">No image</span>`;
@@ -603,7 +620,16 @@
           <div style="font-size: 0.75rem; color: #10b981;">Adv (30%): ₹${advanceVal.toLocaleString('en-IN')}</div>
         </td>
         <td>
-          <span style="font-size: 0.85rem; font-weight: 500;">${escapeHTML(order.design_theme || 'None')}</span>
+          <div style="font-weight: 700; color: var(--blue-light); margin-bottom: 6px;">${escapeHTML(themeName)}</div>
+          <div style="font-size: 0.8rem; color: var(--text-2); max-width: 280px; white-space: normal; line-height: 1.4; word-break: break-word;">
+            <span style="color: var(--text-3); font-weight: 600;">Notes:</span> ${escapeHTML(additionalNotes)}
+          </div>
+          ${voiceUrl ? `
+            <div style="margin-top: 10px;">
+              <div style="font-size: 0.72rem; color: var(--text-3); margin-bottom: 4px; font-weight:600;">🎙️ Voice Message:</div>
+              <audio src="${voiceUrl}" controls style="height: 28px; width: 220px; outline: none;"></audio>
+            </div>
+          ` : ''}
         </td>
         <td>
           ${screenshotTd}
