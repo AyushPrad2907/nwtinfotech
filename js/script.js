@@ -146,8 +146,8 @@ function initServiceButtons() {
 /* ─────────────────────────────────────────────────────────
    CHECKOUT & DYNAMIC UPI QR GENERATION
 ───────────────────────────────────────────────────────── */
-const GLOBAL_UPI_ID = 'nwtinfotech@upi';
-const GLOBAL_PAYEE_NAME = 'NWT Infotech';
+const GLOBAL_UPI_ID = '7859088239@okbizaxis';
+const GLOBAL_PAYEE_NAME = 'Implex Cart International';
 
 function initCheckout() {
   if (!document.getElementById('order-summary-wrap')) return;
