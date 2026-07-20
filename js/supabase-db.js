@@ -181,3 +181,28 @@ async function fetchOrdersFromSupabase() {
   return { success: true, data };
 }
 
+/**
+ * Updates an order's payload in the Supabase orders table.
+ */
+async function updateOrderPayloadInSupabase(orderId, updatedPayload) {
+  const client = getSupabaseClient();
+  if (!client) {
+    // Demo mode: mock success
+    console.log('Mocking status update:', orderId, updatedPayload);
+    return { success: true, mock: true };
+  }
+
+  const { data, error } = await client
+    .from('orders')
+    .update({ design_theme: updatedPayload })
+    .eq('id', orderId);
+
+  if (error) {
+    console.error('Database update error:', error);
+    throw new Error(`Failed to update order in database: ${error.message}`);
+  }
+
+  return { success: true, data };
+}
+
+

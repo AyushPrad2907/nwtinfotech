@@ -474,15 +474,16 @@
           <tr>
             <th>Date</th>
             <th>Customer Info</th>
-            <th>Service Details</th>
+            <th>Service &amp; Plan</th>
             <th>Price Details</th>
-            <th>Design Theme</th>
-            <th>Payment Screenshot</th>
+            <th>Theme &amp; Notes</th>
+            <th>Receipt</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody id="orders-list">
           <tr>
-            <td colspan="6" class="empty-state">Loading dashboard orders...</td>
+            <td colspan="7" class="empty-state">Loading dashboard orders...</td>
           </tr>
         </tbody>
       </table>
@@ -609,7 +610,7 @@
     const listContainer = document.getElementById('orders-list');
     
     if (orders.length === 0) {
-      listContainer.innerHTML = '<tr><td colspan="6" class="empty-state">No matching orders found.</td></tr>';
+      listContainer.innerHTML = '<tr><td colspan="7" class="empty-state">No matching orders found.</td></tr>';
       return;
     }
 
@@ -627,6 +628,7 @@
       let themeName = 'None';
       let additionalNotes = 'No additional notes provided.';
       let voiceUrl = '';
+      let statusVal = 'New';
 
       try {
         if (order.design_theme && (order.design_theme.trim().startsWith('{') || order.design_theme.trim().startsWith('['))) {
@@ -634,6 +636,7 @@
           themeName = parsed.theme || 'None';
           additionalNotes = parsed.notes || 'No additional notes provided.';
           voiceUrl = parsed.voice_url || '';
+          statusVal = parsed.status || 'New';
         } else {
           themeName = order.design_theme || 'None';
         }
@@ -679,6 +682,16 @@
         </td>
         <td>
           ${screenshotTd}
+        </td>
+        <td>
+          <select onchange="changeStatus(${order.id || 0}, this.value)" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-color); color: #fff; padding: 8px 12px; border-radius: 8px; font-size: 0.82rem; outline: none; cursor: pointer; transition: var(--t); font-weight: 600;">
+            <option value="New" style="background:#0f172a;" ${statusVal === 'New' ? 'selected' : ''}>New 📦</option>
+            <option value="Pending Review" style="background:#0f172a;" ${statusVal === 'Pending Review' ? 'selected' : ''}>Pending Review ⏳</option>
+            <option value="Payment Verified" style="background:#0f172a;" ${statusVal === 'Payment Verified' ? 'selected' : ''}>Payment Verified ✅</option>
+            <option value="In Progress" style="background:#0f172a;" ${statusVal === 'In Progress' ? 'selected' : ''}>In Progress ⚡</option>
+            <option value="Completed" style="background:#0f172a;" ${statusVal === 'Completed' ? 'selected' : ''}>Completed 🎉</option>
+            <option value="Cancelled" style="background:#0f172a;" ${statusVal === 'Cancelled' ? 'selected' : ''}>Cancelled ❌</option>
+          </select>
         </td>
       `;
       listContainer.appendChild(row);
@@ -740,6 +753,47 @@
         '"': '&quot;'
       }[tag] || tag)
     );
+  }
+
+  async function changeStatus(orderId, newStatus) {
+    const order = allOrders.find(o => o.id === orderId);
+    if (!order) return;
+    
+    const currentThemeRaw = order.design_theme || '';
+    let updatedPayload = '';
+    
+    try {
+      if (currentThemeRaw && (currentThemeRaw.trim().startsWith('{') || currentThemeRaw.trim().startsWith('['))) {
+        const parsed = JSON.parse(currentThemeRaw);
+        parsed.status = newStatus;
+        updatedPayload = JSON.stringify(parsed);
+      } else {
+        updatedPayload = JSON.stringify({
+          theme: currentThemeRaw || 'None',
+          notes: 'No additional notes provided.',
+          voice_url: '',
+          status: newStatus
+        });
+      }
+    } catch (e) {
+      updatedPayload = JSON.stringify({
+        theme: currentThemeRaw || 'None',
+        notes: 'No additional notes provided.',
+        voice_url: '',
+        status: newStatus
+      });
+    }
+
+    try {
+      await updateOrderPayloadInSupabase(orderId, updatedPayload);
+      order.design_theme = updatedPayload;
+      // Alert/notification
+      alert(`Order status updated to: ${newStatus}`);
+      loadDashboard();
+    } catch (err) {
+      console.error(err);
+      alert('Failed to update status: ' + err.message);
+    }
   }
 </script>
 </body>
