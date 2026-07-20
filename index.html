@@ -18,6 +18,26 @@
   </div>
 </div>
 
+<!-- MONSOON FLASH SALE TOP BANNER -->
+<div id="monsoon-banner" class="monsoon-sale-banner">
+  <div class="monsoon-sale-inner">
+    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+      <span class="monsoon-sale-badge">⚡ FLASH SALE</span>
+      <span class="monsoon-sale-text">🌧️ <strong>Monsoon Mega Sale:</strong> Flat <span class="monsoon-sale-highlight">70% OFF</span> on All Web &amp; Software Services!</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 14px;">
+      <div class="monsoon-timer-wrap">
+        <span>ENDS IN:</span>
+        <span class="monsoon-timer-unit" id="timer-hours">02</span>h
+        <span class="monsoon-timer-unit" id="timer-mins">14</span>m
+        <span class="monsoon-timer-unit" id="timer-secs">32</span>s
+      </div>
+      <a href="services.html" class="monsoon-cta-btn">Claim 70% Off →</a>
+      <button onclick="closeMonsoonBanner()" class="monsoon-float-close" style="color: #a78bfa; margin-left: 6px;" aria-label="Close offer banner">✕</button>
+    </div>
+  </div>
+</div>
+
 <!-- NAVBAR -->
 <nav class="navbar" role="navigation" aria-label="Main navigation">
   <div class="container nav-inner">
@@ -93,7 +113,10 @@
 
       <!-- Left: text -->
       <div class="hero-text fade-in-left">
-        <div class="eyebrow">Web &amp; Software Development Agency</div>
+        <div class="eyebrow" style="display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+          <span class="monsoon-hero-tag">🌧️ MONSOON OFFER — FLAT 70% OFF ON ALL SERVICES ⚡</span>
+          <span>Web &amp; Software Agency</span>
+        </div>
         <h1>Building the<br/><span class="grad-text">Next World</span><br/>with <span id="dynamic-tech-text" class="tech-highlight">Technology</span></h1>
         <p>We design and develop high-performance websites, custom software, and data-driven digital marketing campaigns that transform businesses and drive measurable growth.</p>
         <div class="hero-actions">
@@ -787,6 +810,17 @@
       <div class="social-links"><a href="#" aria-label="LinkedIn">in</a><a href="#" aria-label="Twitter">tw</a><a href="https://www.instagram.com/nwtinfotech?utm_source=qr&igsh=ZjhuMzVkN296bmFy" aria-label="Instagram" target="_blank">ig</a><a href="https://www.facebook.com/share/1GecZ4UkZX/" aria-label="Facebook" target="_blank">fb</a><a href="https://youtube.com/@nwtinfotech?si=4Uwb8JkP6zyuhVPI" aria-label="YouTube" target="_blank">yt</a></div>
     </div>
   </div>
+<!-- FLOATING MONSOON OFFER WIDGET -->
+<div id="monsoon-float" class="monsoon-float-widget">
+  <div class="monsoon-float-icon">🌧️</div>
+  <div class="monsoon-float-content">
+    <h5>Monsoon Sale Live!</h5>
+    <p>Flat <strong style="color: #38bdf8;">70% OFF</strong> on all packages.</p>
+  </div>
+  <a href="services.html" class="monsoon-cta-btn" style="padding: 6px 14px; font-size: 0.76rem; flex-shrink: 0;">Claim 70% OFF</a>
+  <button onclick="closeMonsoonFloat()" class="monsoon-float-close" aria-label="Close float widget">✕</button>
+</div>
+
 </footer>
 
 <script src="js/script.js"></script>

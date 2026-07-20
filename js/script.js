@@ -525,4 +525,44 @@ document.addEventListener('DOMContentLoaded', () => {
   initDesignEngine();
   initHeroInteractive();
   initDynamicTechText();
+  initMonsoonTimer();
 });
+
+/* ─────────────────────────────────────────────────────────
+   MONSOON SALE BANNER & TIMER
+───────────────────────────────────────────────────────── */
+function closeMonsoonBanner() {
+  const banner = document.getElementById('monsoon-banner');
+  if (banner) banner.style.display = 'none';
+}
+
+function closeMonsoonFloat() {
+  const widget = document.getElementById('monsoon-float');
+  if (widget) widget.style.display = 'none';
+}
+
+function initMonsoonTimer() {
+  const hEl = document.getElementById('timer-hours');
+  const mEl = document.getElementById('timer-mins');
+  const sEl = document.getElementById('timer-secs');
+  if (!hEl || !mEl || !sEl) return;
+
+  // 48 hour target countdown timer
+  let totalSeconds = (2 * 24 * 3600) + (14 * 3600) + (32 * 60) + 45;
+
+  setInterval(() => {
+    if (totalSeconds <= 0) {
+      totalSeconds = 48 * 3600;
+    } else {
+      totalSeconds--;
+    }
+
+    const hours = Math.floor(totalSeconds / 3600);
+    const mins = Math.floor((totalSeconds % 3600) / 60);
+    const secs = totalSeconds % 60;
+
+    hEl.textContent = String(hours).padStart(2, '0');
+    mEl.textContent = String(mins).padStart(2, '0');
+    sEl.textContent = String(secs).padStart(2, '0');
+  }, 1000);
+}

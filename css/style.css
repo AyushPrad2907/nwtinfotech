@@ -2343,4 +2343,213 @@ textarea.resize-v { resize: vertical; }
   top: 100px;
   box-shadow: 0 20px 40px rgba(0,0,0,0.3);
 }
+
+/* ─────────────────────────────────────────────────────────
+   MONSOON FLASH SALE OFFER (70% OFF)
+───────────────────────────────────────────────────────── */
+.monsoon-sale-banner {
+  background: linear-gradient(90deg, #0f172a 0%, #1e1b4b 25%, #4c1d95 50%, #1e1b4b 75%, #0f172a 100%);
+  background-size: 200% 100%;
+  animation: monsoonGradient 5s ease infinite;
+  color: #ffffff;
+  padding: 10px 20px;
+  position: relative;
+  z-index: 1002;
+  border-bottom: 1px solid rgba(168, 85, 247, 0.3);
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
+  font-size: 0.88rem;
+}
+
+@keyframes monsoonGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.monsoon-sale-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.monsoon-sale-badge {
+  background: linear-gradient(135deg, #ef4444, #f59e0b);
+  color: #ffffff;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  animation: pulseGlow 1.6s infinite;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  box-shadow: 0 0 14px rgba(239, 68, 68, 0.7);
+}
+
+@keyframes pulseGlow {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 12px rgba(239, 68, 68, 0.6); }
+  50% { transform: scale(1.06); box-shadow: 0 0 22px rgba(245, 158, 11, 0.9); }
+}
+
+.monsoon-sale-text {
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #f1f5f9;
+}
+
+.monsoon-sale-highlight {
+  background: linear-gradient(135deg, #38bdf8, #c084fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 900;
+  font-size: 1.05rem;
+}
+
+.monsoon-timer-wrap {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.8rem;
+  background: rgba(0, 0, 0, 0.35);
+  padding: 4px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+}
+
+.monsoon-timer-unit {
+  background: rgba(124, 58, 237, 0.3);
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 700;
+  color: #38bdf8;
+}
+
+.monsoon-cta-btn {
+  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  color: #fff !important;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 14px rgba(6, 182, 212, 0.4);
+  display: inline-flex;
+  align-items: center;
+}
+
+.monsoon-cta-btn:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 0 22px rgba(6, 182, 212, 0.8);
+}
+
+.monsoon-hero-tag {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(168, 85, 247, 0.15));
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #f87171;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.2);
+  animation: pulseGlow 2s infinite;
+}
+
+/* Floating Monsoon Offer Card for Mobile & Web */
+.monsoon-float-widget {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 999;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6), 0 0 24px rgba(168, 85, 247, 0.3);
+  border-radius: 16px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: 380px;
+  animation: floatBounce 4s ease-in-out infinite;
+  transition: all 0.3s ease;
+}
+
+@keyframes floatBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.monsoon-float-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+  animation: iconSpin 3s ease-in-out infinite alternate;
+}
+
+@keyframes iconSpin {
+  from { transform: rotate(-8deg); }
+  to { transform: rotate(8deg); }
+}
+
+.monsoon-float-content h5 {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.monsoon-float-content p {
+  margin: 2px 0 0;
+  font-size: 0.76rem;
+  color: #94a3b8;
+}
+
+.monsoon-float-close {
+  background: none;
+  border: none;
+  color: #64748b;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0;
+  margin-left: auto;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.monsoon-float-close:hover {
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .monsoon-sale-inner {
+    justify-content: center;
+    text-align: center;
+  }
+  .monsoon-timer-wrap {
+    display: none;
+  }
+  .monsoon-float-widget {
+    left: 12px;
+    right: 12px;
+    bottom: 16px;
+    max-width: none;
+  }
+}
+
 
