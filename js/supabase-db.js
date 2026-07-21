@@ -209,4 +209,74 @@ async function updateOrderPayloadInSupabase(orderId, updatedPayload) {
   return { success: true, data };
 }
 
+/**
+ * Handles the career application submission and database insertion.
+ */
+async function submitApplicationToSupabase(appData, file) {
+  const client = getSupabaseClient();
+  if (!client) {
+    console.log('Mocking application database submission:', appData);
+    return { success: true, mock: true };
+  }
+
+  let resumeUrl = '';
+
+  // 1. Upload resume to Storage bucket 'receipts' if provided
+  if (file) {
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${Date.now()}_resume_${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
+    const filePath = `${fileName}`;
+
+    const { data: uploadData, error: uploadError } = await client.storage
+      .from('receipts')
+      .upload(filePath, file);
+
+    if (uploadError) {
+      console.error('Storage upload error for resume:', uploadError);
+      throw new Error(`Failed to upload resume: ${uploadError.message}`);
+    }
+
+    // Get public URL
+    const { data: publicUrlData } = client.storage
+      .from('receipts')
+      .getPublicUrl(filePath);
+
+    resumeUrl = publicUrlData.publicUrl;
+  }
+
+  // 2. Insert record into Postgres 'applications' table
+  try {
+    const { data, error } = await client
+      .from('applications')
+      .insert([
+        {
+          name: appData.name,
+          email: appData.email,
+          phone: appData.phone,
+          designation: appData.designation,
+          resume_url: resumeUrl
+        }
+      ]);
+
+    if (error) {
+      console.warn('Database insert error for applications (falling back):', error);
+      if (error.code === '42P01') {
+        console.log('Applications table does not exist. Handled gracefully (demo fallback). Data:', appData);
+        return { success: true, mock: true, warning: 'applications_table_missing' };
+      }
+      throw new Error(`Failed to save application: ${error.message}`);
+    }
+
+    return { success: true, data };
+  } catch (err) {
+    console.error('Caught error during application save:', err);
+    if (err.message.includes('42P01') || err.message.includes('relation "applications" does not exist') || err.message.includes('table')) {
+      console.log('Relation applications does not exist. Simulating submission.');
+      return { success: true, mock: true, warning: 'applications_table_missing' };
+    }
+    throw err;
+  }
+}
+
+
 

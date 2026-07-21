@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Careers at NWT Infotech – Join Our Team</title>
+<meta name="description" content="Build the future with NWT Infotech. We are hiring passionate designers, developers, and marketers. Apply now!"/>
+<link rel="stylesheet" href="css/style.css"/>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%233b82f6'/><stop offset='1' stop-color='%237c3aed'/></linearGradient></defs><rect width='32' height='32' rx='8' fill='url(%23g)'/><text y='22' x='5' font-size='16' font-weight='900' fill='white' font-family='Arial'>N</text></svg>"/>
+
+<style>
+  /* Custom Career-specific Styles for Visual Excellence */
+  .careers-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items: start;
+    margin-top: 30px;
+  }
+  @media (max-width: 1024px) {
+    .careers-grid {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+  }
+
+  /* Open Roles Column styles */
+  .roles-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .role-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.01) 0%, rgba(255, 255, 255, 0.03) 100%);
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    border-radius: 18px;
+    padding: 26px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s var(--ease);
+    box-shadow: var(--glow-card);
+  }
+
+  .role-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--g-cool);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .role-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(59, 130, 246, 0.25);
+    box-shadow: 0 16px 36px rgba(59, 130, 246, 0.05), 0 0 1px rgba(59, 130, 246, 0.15);
+  }
+
+  .role-card:hover::before {
+    opacity: 1;
+  }
+
+  .role-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+
+  .role-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .role-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+
+  .role-tag {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.65rem;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  .tag-type { background: rgba(59, 130, 246, 0.1); color: var(--cyan-light); }
+  .tag-loc { background: rgba(16, 185, 129, 0.1); color: var(--emerald); }
+
+  .role-desc {
+    font-size: 0.88rem;
+    color: var(--text-2);
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  .role-requirements {
+    font-size: 0.82rem;
+    color: var(--text-3);
+    margin-bottom: 20px;
+  }
+
+  .role-requirements ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .role-requirements li {
+    position: relative;
+    padding-left: 18px;
+    margin-bottom: 6px;
+  }
+
+  .role-requirements li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--cyan);
+  }
+
+  /* Form Column styles */
+  .careers-form-card {
+    background: linear-gradient(180deg, rgba(59, 130, 246, 0.03) 0%, rgba(124, 58, 237, 0.01) 100%);
+    border: 1px solid rgba(59, 130, 246, 0.12);
+    border-radius: 24px;
+    padding: 36px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.02);
+    position: sticky;
+    top: 100px;
+  }
+
+  .careers-form-card h3 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+
+  .careers-form-card p.form-subtitle {
+    font-size: 0.88rem;
+    color: var(--text-2);
+    margin-bottom: 28px;
+  }
+
+  .compression-tips {
+    background: rgba(59, 130, 246, 0.03);
+    border: 1px dashed rgba(59, 130, 246, 0.15);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 14px;
+    font-size: 0.78rem;
+    color: var(--text-2);
+    line-height: 1.5;
+  }
+
+  .compression-tips strong {
+    color: var(--cyan-light);
+  }
+
+  .compression-tips ul {
+    margin-top: 6px;
+    padding-left: 14px;
+    list-style-type: disc;
+  }
+
+  .compression-tips li {
+    margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<!-- Preloader Screen -->
+<div id="preloader">
+  <div class="preloader-content">
+    <div class="preloader-loader"></div>
+    <div class="preloader-text">Loading NWT Infotech</div>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-mark">N</div>
+      <div class="logo-text"><span>NWT Infotech</span><span>next world tech</span></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="nav-cta-wrap">
+        <a href="checkout.html" class="btn btn-ghost btn-sm">Cart <span class="cart-badge" style="display:none">1</span></a>
+        <a href="services.html" class="btn btn-primary btn-sm">Get Started</a>
+      </div>
+      <button class="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="nav-mobile">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="services.html">Services</a>
+  <a href="checkout.html" class="btn btn-ghost btn-sm">Cart</a>
+  <a href="services.html" class="btn btn-primary">Get Started</a>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container fade-in">
+    <div class="eyebrow eyebrow-center">Careers</div>
+    <h1>Build the Future <span class="grad-text">With Us</span></h1>
+    <p>Join a world-class team of technologists, designers, and marketers crafting next-generation digital experiences.</p>
+  </div>
+</section>
+
+<!-- MAIN CONTENT SECTION -->
+<section class="section-sm">
+  <div class="container">
+    <div class="careers-grid">
+      
+      <!-- LEFT COLUMN: OPEN POSITIONS -->
+      <div class="roles-column fade-in-left">
+        <div style="margin-bottom: 10px;">
+          <h2 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 8px;">Open Opportunities</h2>
+          <p style="color: var(--text-2); font-size: 0.94rem;">Click "Select &amp; Apply" on a role to populate the application form.</p>
+        </div>
+
+        <!-- Role 1: Frontend Developer -->
+        <div class="role-card">
+          <div class="role-header">
+            <div class="role-title">Frontend Developer (React / Next.js)</div>
+            <div class="role-tags">
+              <span class="role-tag tag-type">Full-time</span>
+              <span class="role-tag tag-loc">Remote</span>
+            </div>
+          </div>
+          <p class="role-desc">Looking for a talented frontend engineer to build responsive, stunning, and highly performant web applications using React, Next.js, and CSS/Animations libraries.</p>
+          <div class="role-requirements">
+            <strong>Key Requirements:</strong>
+            <ul>
+              <li>Strong proficiency in HTML5, CSS3, ES6+, and Modern React features.</li>
+              <li>Experience with CSS grid/flexbox, responsive layouts, and animations (GSAP, CSS transitions).</li>
+              <li>Familiarity with Git and headless APIs.</li>
+            </ul>
+          </div>
+          <button class="btn btn-ghost btn-sm" data-apply-role="Frontend Developer">Select &amp; Apply</button>
+        </div>
+
+        <!-- Role 2: Fullstack Software Engineer -->
+        <div class="role-card">
+          <div class="role-header">
+            <div class="role-title">Fullstack Software Engineer</div>
+            <div class="role-tags">
+              <span class="role-tag tag-type">Full-time</span>
+              <span class="role-tag tag-loc">Remote / Hybrid</span>
+            </div>
+          </div>
+          <p class="role-desc">We need a versatile developer to craft robust backend architectures, APIs, and databases while coordinating with client-side applications.</p>
+          <div class="role-requirements">
+            <strong>Key Requirements:</strong>
+            <ul>
+              <li>Proficiency in Node.js, Express, PostgreSQL, and Supabase / Firebase.</li>
+              <li>Good understanding of RESTful API design, database schemas, and caching.</li>
+              <li>Experience deploying and monitoring cloud-native web apps.</li>
+            </ul>
+          </div>
+          <button class="btn btn-ghost btn-sm" data-apply-role="Fullstack Software Engineer">Select &amp; Apply</button>
+        </div>
+
+        <!-- Role 3: UI/UX Designer -->
+        <div class="role-card">
+          <div class="role-header">
+            <div class="role-title">UI/UX Designer</div>
+            <div class="role-tags">
+              <span class="role-tag tag-type">Full-time</span>
+              <span class="role-tag tag-loc">Remote</span>
+            </div>
+          </div>
+          <p class="role-desc">Shape the user journeys, wireframes, visual designs, and high-fidelity interactive prototypes that define the next generation of SaaS and digital portals.</p>
+          <div class="role-requirements">
+            <strong>Key Requirements:</strong>
+            <ul>
+              <li>Exceptional portfolio showcasing user-centered UX flows and stunning visual UI.</li>
+              <li>Deep expertise in Figma, component design systems, auto-layouts, and prototyping.</li>
+              <li>Strong understanding of micro-interactions and motion design principles.</li>
+            </ul>
+          </div>
+          <button class="btn btn-ghost btn-sm" data-apply-role="UI/UX Designer">Select &amp; Apply</button>
+        </div>
+
+        <!-- Role 4: Digital Marketing & SEO Specialist -->
+        <div class="role-card">
+          <div class="role-header">
+            <div class="role-title">Digital Marketing &amp; SEO Specialist</div>
+            <div class="role-tags">
+              <span class="role-tag tag-type">Full-time</span>
+              <span class="role-tag tag-loc">Remote</span>
+            </div>
+          </div>
+          <p class="role-desc">Help our clients scale their organic and paid reach by orchestrating programmatic SEO campaigns, link-building, conversion rate optimization (CRO), and content frameworks.</p>
+          <div class="role-requirements">
+            <strong>Key Requirements:</strong>
+            <ul>
+              <li>Hands-on experience with SEO suites (Ahrefs, SEMrush, Screaming Frog).</li>
+              <li>Proven track record of improving organic traffic, indexing, and keyword ranks.</li>
+              <li>Proficiency in Web Analytics (GA4) and landing page conversion optimization.</li>
+            </ul>
+          </div>
+          <button class="btn btn-ghost btn-sm" data-apply-role="Digital Marketing &amp; SEO Specialist">Select &amp; Apply</button>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN: APPLICATION FORM -->
+      <div class="careers-form-card fade-in-right" id="careers-form-section">
+        <h3>Submit Your Application</h3>
+        <p class="form-subtitle">Please enter your information and upload your resume. Let's make an impact together.</p>
+
+        <form id="careers-form" novalidate>
+          <div class="form-group">
+            <label for="applicant-name">Full Name *</label>
+            <input type="text" id="applicant-name" name="name" placeholder="John Doe" required/>
+          </div>
+
+          <div class="form-group">
+            <label for="applicant-email">Email Address *</label>
+            <input type="email" id="applicant-email" name="email" placeholder="you@example.com" required/>
+          </div>
+
+          <div class="form-group">
+            <label for="applicant-phone">Phone Number *</label>
+            <input type="tel" id="applicant-phone" name="phone" placeholder="+91 98765 43210" required/>
+          </div>
+
+          <div class="form-group">
+            <label for="designation-select">Designation / Role *</label>
+            <select id="designation-select" name="designation" required>
+              <option value="" disabled selected>Select Designation</option>
+              <option value="Frontend Developer">Frontend Developer</option>
+              <option value="Fullstack Software Engineer">Fullstack Software Engineer</option>
+              <option value="UI/UX Designer">UI/UX Designer</option>
+              <option value="Digital Marketing &amp; SEO Specialist">Digital Marketing &amp; SEO Specialist</option>
+              <option value="Other">Other / General Submission</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 28px;">
+            <label>Upload Resume *</label>
+            <p class="form-hint" style="margin-bottom: 10px;">Please upload your resume in a compressed size (around 70 KB).</p>
+            
+            <div class="file-upload-area" id="resume-upload-area">
+              <input type="file" id="resume-file" accept=".pdf,.doc,.docx,.jpg,.png,image/*" name="resume" required/>
+              <div class="up-icon">&#128188;</div>
+              <p>Click to upload or drag &amp; drop</p>
+              <p class="file-hint" id="file-size-feedback">PDF, DOC, DOCX, JPG, PNG — max 80 KB (aim for 70 KB)</p>
+              <div class="file-name"></div>
+            </div>
+
+            <!-- Compression Info Box -->
+            <div class="compression-tips">
+              <strong>💡 Need to compress your resume?</strong>
+              <ul>
+                <li><strong>PDF:</strong> Compress for free online with ILovePDF, TinyPDF, or Adobe PDF compressor.</li>
+                <li><strong>Word Doc:</strong> Save as PDF first, then compress the PDF.</li>
+                <li><strong>Images:</strong> Save as JPEG with lower quality (60-70%) or convert to WebP.</li>
+              </ul>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-full btn-lg">Submit Application</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SUCCESS POPUP -->
+<div class="popup-overlay" id="success-popup" role="dialog" aria-modal="true" aria-label="Application submitted">
+  <div class="popup-box">
+    <span class="popup-icon">&#127881;</span>
+    <h3>Application Submitted!</h3>
+    <p>Thank you for applying to join our team. We have received your compressed resume and details. Our talent team will review them and reach out if there's a match.</p>
+    <div class="popup-info-box">
+      <div class="popup-info-label">APPLICANT NAME</div>
+      <div class="popup-info-val">—</div>
+    </div>
+    <button class="btn btn-primary btn-full btn-lg" onclick="closePopup()">Return to Home</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo footer-logo">
+          <div class="logo-mark">N</div>
+          <div class="logo-text"><span>NWT Infotech</span><span>next world tech</span></div>
+        </a>
+        <p>Empowering businesses with next-generation digital solutions. Building the digital future, one pixel at a time.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="checkout.html">Checkout</a></li>
+          <li><a href="careers.html" class="active">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="services.html#web-dev">Website Development</a></li>
+          <li><a href="services.html#software-dev">Software Development</a></li>
+          <li><a href="services.html#digital-marketing">Digital Marketing</a></li>
+          <li><a href="services.html#seo-smo">SEO / SMO</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul class="footer-contact">
+          <li><div class="f-ico">📧</div><span>contact@nwtinfotech.com</span></li>
+          <li><div class="f-ico">📞</div><span>+91 98765 43210</span></li>
+          <li><div class="f-ico">📍</div><span>India — Serving Worldwide</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 <span>NWT Infotech</span>. All rights reserved. Crafted with ❤️ in India.</p>
+      <div class="social-links">
+        <a href="#" aria-label="LinkedIn">in</a>
+        <a href="#" aria-label="Twitter">tw</a>
+        <a href="https://www.instagram.com/nwtinfotech?utm_source=qr&igsh=ZjhuMzVkN296bmFy" aria-label="Instagram" target="_blank">ig</a>
+        <a href="https://www.facebook.com/share/1GecZ4UkZX/" aria-label="Facebook" target="_blank">fb</a>
+        <a href="https://youtube.com/@nwtinfotech?si=4Uwb8JkP6zyuhVPI" aria-label="YouTube" target="_blank">yt</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Supabase SDK & Configuration -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/supabase-db.js"></script>
+<script src="js/script.js"></script>
+<script src="js/careers.js"></script>
+</body>
+</html>
