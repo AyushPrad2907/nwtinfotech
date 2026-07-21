@@ -972,12 +972,19 @@ button{cursor:pointer;font-family:inherit;border:none;outline:none}
 .fade-in-right.visible{opacity:1;transform:translateX(0)}
 
 .stagger>*{opacity:0;transform:translateY(22px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
-.stagger.visible>*:nth-child(1){opacity:1;transform:none;transition-delay:.04s}
-.stagger.visible>*:nth-child(2){opacity:1;transform:none;transition-delay:.10s}
-.stagger.visible>*:nth-child(3){opacity:1;transform:none;transition-delay:.16s}
-.stagger.visible>*:nth-child(4){opacity:1;transform:none;transition-delay:.22s}
-.stagger.visible>*:nth-child(5){opacity:1;transform:none;transition-delay:.28s}
-.stagger.visible>*:nth-child(6){opacity:1;transform:none;transition-delay:.34s}
+.stagger.visible>*{opacity:1;transform:none}
+.stagger.visible>*:nth-child(1){transition-delay:.04s}
+.stagger.visible>*:nth-child(2){transition-delay:.10s}
+.stagger.visible>*:nth-child(3){transition-delay:.16s}
+.stagger.visible>*:nth-child(4){transition-delay:.22s}
+.stagger.visible>*:nth-child(5){transition-delay:.28s}
+.stagger.visible>*:nth-child(6){transition-delay:.34s}
+.stagger.visible>*:nth-child(7){transition-delay:.40s}
+.stagger.visible>*:nth-child(8){transition-delay:.46s}
+.stagger.visible>*:nth-child(9){transition-delay:.52s}
+.stagger.visible>*:nth-child(10){transition-delay:.58s}
+.stagger.visible>*:nth-child(11){transition-delay:.64s}
+.stagger.visible>*:nth-child(12){transition-delay:.70s}
 
 /* ═══════════════════════════════════════════════════════════
    RESPONSIVE — Mobile-first, 5 breakpoints
