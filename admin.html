@@ -437,76 +437,136 @@
     </div>
 
     <!-- Mode Banner -->
-    <div id="mode-banner" class="toast-banner" style="display:none">
+    <div id="mode-banner" class="toast-banner" style="display:none; margin-bottom: 20px;">
       <span>ℹ️</span>
       <span id="mode-text">Running in Demo Mode (Mock data shown). Configure Supabase settings to view live entries.</span>
     </div>
 
-    <!-- Stats Grid -->
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-label">Total Orders</div>
-        <div class="stat-val" id="stat-total-orders">0</div>
-        <div class="stat-sub">Submitted leads</div>
-      </div>
-      <div class="stat-card revenue">
-        <div class="stat-label">Estimated Revenue</div>
-        <div class="stat-val" id="stat-revenue">₹0</div>
-        <div class="stat-sub">Accumulated service value</div>
-      </div>
-      <div class="stat-card services">
-        <div class="stat-label">Advance (30%) Due</div>
-        <div class="stat-val" id="stat-advance">₹0</div>
-        <div class="stat-sub">Estimated receipts value</div>
-      </div>
+    <!-- Dashboard Tabs -->
+    <div class="dashboard-tabs" style="display: flex; gap: 8px; margin-bottom: 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 8px;">
+      <button id="tab-btn-orders" class="btn btn-ghost" style="height: 38px; border-radius: 8px; padding: 0 16px; font-size: 0.88rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); color: #fff;">📦 Service Orders</button>
+      <button id="tab-btn-careers" class="btn btn-ghost" style="height: 38px; border-radius: 8px; padding: 0 16px; font-size: 0.88rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; border: 1px solid transparent; color: var(--text-3); background: none;">💼 Career Requests</button>
     </div>
 
-    <!-- Analytics Section -->
-    <div class="stats-grid" id="analytics-section" style="margin-bottom: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-      <div class="stat-card" style="grid-column: span 1; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px;">
-        <div class="stat-label">🔥 Service Popularity</div>
-        <div id="service-breakdown-list" style="margin-top: 12px; display: flex; flex-direction: column; gap: 14px;">
-          <div style="font-size: 0.82rem; color: var(--text-3);">Loading popularity metrics...</div>
+    <!-- ORDERS DASHBOARD VIEW -->
+    <div id="orders-dashboard-view">
+      <!-- Stats Grid -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Total Orders</div>
+          <div class="stat-val" id="stat-total-orders">0</div>
+          <div class="stat-sub">Submitted leads</div>
+        </div>
+        <div class="stat-card revenue">
+          <div class="stat-label">Estimated Revenue</div>
+          <div class="stat-val" id="stat-revenue">₹0</div>
+          <div class="stat-sub">Accumulated service value</div>
+        </div>
+        <div class="stat-card services">
+          <div class="stat-label">Advance (30%) Due</div>
+          <div class="stat-val" id="stat-advance">₹0</div>
+          <div class="stat-sub">Estimated receipts value</div>
         </div>
       </div>
-      <div class="stat-card" style="grid-column: span 1; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px;">
-        <div class="stat-label">📈 Funnel Conversion &amp; Status</div>
-        <div id="status-breakdown-list" style="margin-top: 12px; display: flex; flex-direction: column; gap: 14px;">
-          <div style="font-size: 0.82rem; color: var(--text-3);">Loading funnel status...</div>
+
+      <!-- Analytics Section -->
+      <div class="stats-grid" id="analytics-section" style="margin-bottom: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+        <div class="stat-card" style="grid-column: span 1; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px;">
+          <div class="stat-label">🔥 Service Popularity</div>
+          <div id="service-breakdown-list" style="margin-top: 12px; display: flex; flex-direction: column; gap: 14px;">
+            <div style="font-size: 0.82rem; color: var(--text-3);">Loading popularity metrics...</div>
+          </div>
+        </div>
+        <div class="stat-card" style="grid-column: span 1; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px;">
+          <div class="stat-label">📈 Funnel Conversion &amp; Status</div>
+          <div id="status-breakdown-list" style="margin-top: 12px; display: flex; flex-direction: column; gap: 14px;">
+            <div style="font-size: 0.82rem; color: var(--text-3);">Loading funnel status...</div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- Controls -->
-    <div class="controls-row">
-      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap; width:100%; max-width:500px;">
-        <input type="text" id="search-bar" class="search-input" placeholder="Search customer name, email, or service..." style="flex-grow:1; max-width:320px;"/>
-        <button id="export-csv-btn" class="btn btn-ghost" style="border: 1px solid var(--border-color); height: 42px; font-weight: 600; font-size: 0.88rem; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px;">📥 Export to CSV</button>
+      <!-- Controls -->
+      <div class="controls-row">
+        <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap; width:100%; max-width:500px;">
+          <input type="text" id="search-bar" class="search-input" placeholder="Search customer name, email, or service..." style="flex-grow:1; max-width:320px;"/>
+          <button id="export-csv-btn" class="btn btn-ghost" style="border: 1px solid var(--border-color); height: 42px; font-weight: 600; font-size: 0.88rem; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px;">📥 Export to CSV</button>
+        </div>
+        <div style="font-size: 0.85rem; color: var(--text-3);" id="results-count">Showing all records</div>
       </div>
-      <div style="font-size: 0.85rem; color: var(--text-3);" id="results-count">Showing all records</div>
+
+      <!-- Orders Table -->
+      <div class="orders-table-wrapper">
+        <table class="orders-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Customer Info</th>
+              <th>Service &amp; Plan</th>
+              <th>Price Details</th>
+              <th>Theme &amp; Notes</th>
+              <th>Receipt</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="orders-list">
+            <tr>
+              <td colspan="7" class="empty-state">Loading dashboard orders...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
-    <!-- Orders Table -->
-    <div class="orders-table-wrapper">
-      <table class="orders-table">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Customer Info</th>
-            <th>Service &amp; Plan</th>
-            <th>Price Details</th>
-            <th>Theme &amp; Notes</th>
-            <th>Receipt</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody id="orders-list">
-          <tr>
-            <td colspan="7" class="empty-state">Loading dashboard orders...</td>
-          </tr>
-        </tbody>
-      </table>
+    <!-- CAREERS DASHBOARD VIEW -->
+    <div id="careers-dashboard-view" style="display: none;">
+      <!-- Stats Grid -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Total Applications</div>
+          <div class="stat-val" id="stat-total-apps">0</div>
+          <div class="stat-sub">Submitted candidates</div>
+        </div>
+        <div class="stat-card revenue">
+          <div class="stat-label">Most Applied Role</div>
+          <div class="stat-val" id="stat-top-role" style="font-size: 1.15rem; line-height: 1.6; padding-top: 10px; font-weight: 700; color: var(--text);">—</div>
+          <div class="stat-sub">Highest recruitment volume</div>
+        </div>
+        <div class="stat-card services">
+          <div class="stat-label">Review Status</div>
+          <div class="stat-val" id="stat-review-status" style="font-size: 1.25rem; line-height: 1.6; padding-top: 8px; font-weight: 700; color: var(--emerald);">Active</div>
+          <div class="stat-sub">Applications incoming</div>
+        </div>
+      </div>
+
+      <!-- Careers Controls -->
+      <div class="controls-row">
+        <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap; width:100%; max-width:500px;">
+          <input type="text" id="careers-search-bar" class="search-input" placeholder="Search applicant name, email, or role..." style="flex-grow:1; max-width:320px;"/>
+          <button id="careers-export-csv-btn" class="btn btn-ghost" style="border: 1px solid var(--border-color); height: 42px; font-weight: 600; font-size: 0.88rem; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px;">📥 Export to CSV</button>
+        </div>
+        <div style="font-size: 0.85rem; color: var(--text-3);" id="careers-results-count">Showing all records</div>
+      </div>
+
+      <!-- Careers Table -->
+      <div class="orders-table-wrapper">
+        <table class="orders-table">
+          <thead>
+            <tr>
+              <th>Date Applied</th>
+              <th>Applicant Info</th>
+              <th>Designation</th>
+              <th>Resume File</th>
+            </tr>
+          </thead>
+          <tbody id="careers-list">
+            <tr>
+              <td colspan="4" class="empty-state">Loading job applications...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+
 
   </div>
 </main>
@@ -534,6 +594,7 @@
 <script src="js/supabase-db.js"></script>
 <script>
   let allOrders = [];
+  let allApplications = [];
 
   // SHA-256 hashes of the credentials
   const USERNAME_HASH = '927480ee2b6458f314d2be1440ea572d7b39d6ed2b2cc9e1b073ba6c4b137308'; // Plaintext: nwt_admin
@@ -560,6 +621,44 @@
     document.getElementById('refresh-btn').addEventListener('click', loadDashboard);
     document.getElementById('search-bar').addEventListener('input', filterOrders);
     document.getElementById('export-csv-btn')?.addEventListener('click', exportToCSV);
+    
+    // Tabs behavior
+    const btnOrders = document.getElementById('tab-btn-orders');
+    const btnCareers = document.getElementById('tab-btn-careers');
+    const viewOrders = document.getElementById('orders-dashboard-view');
+    const viewCareers = document.getElementById('careers-dashboard-view');
+
+    if (btnOrders && btnCareers && viewOrders && viewCareers) {
+      btnOrders.addEventListener('click', () => {
+        btnOrders.style.background = 'rgba(59, 130, 246, 0.1)';
+        btnOrders.style.borderColor = 'rgba(59, 130, 246, 0.2)';
+        btnOrders.style.color = '#fff';
+
+        btnCareers.style.background = 'none';
+        btnCareers.style.borderColor = 'transparent';
+        btnCareers.style.color = 'var(--text-3)';
+
+        viewOrders.style.display = 'block';
+        viewCareers.style.display = 'none';
+      });
+
+      btnCareers.addEventListener('click', () => {
+        btnCareers.style.background = 'rgba(59, 130, 246, 0.1)';
+        btnCareers.style.borderColor = 'rgba(59, 130, 246, 0.2)';
+        btnCareers.style.color = '#fff';
+
+        btnOrders.style.background = 'none';
+        btnOrders.style.borderColor = 'transparent';
+        btnOrders.style.color = 'var(--text-3)';
+
+        viewOrders.style.display = 'none';
+        viewCareers.style.display = 'block';
+      });
+    }
+
+    document.getElementById('careers-search-bar')?.addEventListener('input', filterApplications);
+    document.getElementById('careers-export-csv-btn')?.addEventListener('click', exportApplicationsToCSV);
+
     document.getElementById('logout-btn')?.addEventListener('click', () => {
       sessionStorage.removeItem('nwt_authenticated');
       window.location.reload();
@@ -603,7 +702,12 @@
     if (sessionStorage.getItem('nwt_authenticated') !== 'true') return;
 
     const listContainer = document.getElementById('orders-list');
-    listContainer.innerHTML = '<tr><td colspan="6" class="empty-state">⚡ Retrieving orders...</td></tr>';
+    listContainer.innerHTML = '<tr><td colspan="7" class="empty-state">⚡ Retrieving orders...</td></tr>';
+
+    const careersContainer = document.getElementById('careers-list');
+    if (careersContainer) {
+      careersContainer.innerHTML = '<tr><td colspan="4" class="empty-state">⚡ Retrieving applications...</td></tr>';
+    }
     
     try {
       const response = await fetchOrdersFromSupabase();
@@ -620,9 +724,15 @@
       renderOrders(allOrders);
       updateStats(allOrders);
 
+      // Fetch career applications
+      const appResponse = await fetchApplicationsFromSupabase();
+      allApplications = appResponse.data || [];
+      renderApplications(allApplications);
+      updateCareerStats(allApplications);
+
     } catch (err) {
       console.error(err);
-      listContainer.innerHTML = `<tr><td colspan="6" class="empty-state" style="color: #ef4444">⚠️ Error: ${err.message || 'Failed to load database orders.'}</td></tr>`;
+      listContainer.innerHTML = `<tr><td colspan="7" class="empty-state" style="color: #ef4444">⚠️ Error: ${err.message || 'Failed to load database orders.'}</td></tr>`;
     }
   }
 
@@ -947,6 +1057,126 @@
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
     link.setAttribute("download", `nwt_orders_export_${Date.now()}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  function renderApplications(apps) {
+    const listContainer = document.getElementById('careers-list');
+    if (!listContainer) return;
+
+    if (apps.length === 0) {
+      listContainer.innerHTML = '<tr><td colspan="4" class="empty-state">No matching applications found.</td></tr>';
+      return;
+    }
+
+    listContainer.innerHTML = '';
+    apps.forEach(app => {
+      const dateStr = app.created_at 
+        ? new Date(app.created_at).toLocaleDateString('en-IN', {
+            day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
+          }) 
+        : 'N/A';
+
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td style="font-size: 0.8rem; font-family: monospace;">${dateStr}</td>
+        <td>
+          <div class="client-info">
+            <span class="client-name">${escapeHTML(app.name)}</span>
+            <span class="client-meta">📧 ${escapeHTML(app.email)}</span>
+            <span class="client-meta">📞 ${escapeHTML(app.phone)}</span>
+          </div>
+        </td>
+        <td>
+          <span class="service-badge" style="background: rgba(124, 58, 237, 0.1); color: var(--violet);">${escapeHTML(app.designation)}</span>
+        </td>
+        <td>
+          ${app.resume_url && app.resume_url !== '#' ? `
+            <a href="${app.resume_url}" target="_blank" class="btn btn-ghost btn-sm" style="border: 1px solid var(--border-color); display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; font-size: 0.8rem; text-decoration: none; font-weight: 600;">
+              📄 View Resume
+            </a>
+          ` : `
+            <span class="no-receipt">No resume file</span>
+          `}
+        </td>
+      `;
+      listContainer.appendChild(row);
+    });
+  }
+
+  function updateCareerStats(apps) {
+    const totalAppsEl = document.getElementById('stat-total-apps');
+    if (totalAppsEl) totalAppsEl.textContent = apps.length;
+
+    // Calculate most applied designation
+    const roles = {};
+    apps.forEach(a => {
+      const r = a.designation || 'Other';
+      roles[r] = (roles[r] || 0) + 1;
+    });
+
+    let topRole = 'None';
+    let maxCount = 0;
+    Object.entries(roles).forEach(([role, count]) => {
+      if (count > maxCount) {
+        maxCount = count;
+        topRole = role;
+      }
+    });
+
+    const topRoleEl = document.getElementById('stat-top-role');
+    if (topRoleEl) {
+      topRoleEl.textContent = topRole;
+      topRoleEl.title = `${topRole} (${maxCount} application(s))`;
+    }
+  }
+
+  function filterApplications() {
+    const query = document.getElementById('careers-search-bar').value.toLowerCase().trim();
+    if (!query) {
+      renderApplications(allApplications);
+      document.getElementById('careers-results-count').textContent = 'Showing all records';
+      return;
+    }
+
+    const filtered = allApplications.filter(app => {
+      return (app.name && app.name.toLowerCase().includes(query)) ||
+             (app.email && app.email.toLowerCase().includes(query)) ||
+             (app.designation && app.designation.toLowerCase().includes(query));
+    });
+
+    renderApplications(filtered);
+    document.getElementById('careers-results-count').textContent = `Found ${filtered.length} matching application(s)`;
+  }
+
+  function exportApplicationsToCSV() {
+    if (allApplications.length === 0) {
+      alert("No applications available to export.");
+      return;
+    }
+    
+    const headers = ["Apply Date", "Name", "Email", "Phone", "Designation", "Resume URL"];
+    const rows = allApplications.map(app => [
+      app.created_at ? new Date(app.created_at).toISOString() : '',
+      app.name || '',
+      app.email || '',
+      app.phone || '',
+      app.designation || '',
+      app.resume_url || ''
+    ]);
+
+    const csvRows = [headers.join(",")];
+    rows.forEach(r => {
+      csvRows.push(r.map(val => `"${String(val).replace(/"/g, '""')}"`).join(","));
+    });
+    
+    const csvContent = "data:text/csv;charset=utf-8," + csvRows.join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `nwt_applications_export_${Date.now()}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

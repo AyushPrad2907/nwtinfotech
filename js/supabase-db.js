@@ -278,5 +278,108 @@ async function submitApplicationToSupabase(appData, file) {
   }
 }
 
+/**
+ * Fetches all career applications from Supabase or returns mock data in demo mode.
+ */
+async function fetchApplicationsFromSupabase() {
+  const client = getSupabaseClient();
+  if (!client) {
+    // Return mock applications for demo mode
+    return {
+      success: true,
+      mock: true,
+      data: [
+        {
+          id: 1,
+          name: "Rahul Sharma",
+          email: "rahul.sharma@example.com",
+          phone: "+91 98765 88990",
+          designation: "Frontend Developer",
+          resume_url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          created_at: new Date(Date.now() - 3600000 * 2).toISOString()
+        },
+        {
+          id: 2,
+          name: "Priya Patel",
+          email: "priya.ux@designstudio.com",
+          phone: "+91 91234 44556",
+          designation: "UI/UX Designer",
+          resume_url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          created_at: new Date(Date.now() - 3600000 * 18).toISOString()
+        },
+        {
+          id: 3,
+          name: "Amit Verma",
+          email: "amit.marketing@verma.in",
+          phone: "+91 99887 11223",
+          designation: "Digital Marketing & SEO Specialist",
+          resume_url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          created_at: new Date(Date.now() - 3600000 * 42).toISOString()
+        }
+      ]
+    };
+  }
+
+  try {
+    const { data, error } = await client
+      .from('applications')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      console.warn('Database fetch error for applications (falling back to mock):', error);
+      if (error.code === '42P01') {
+        // Table doesn't exist, return demo data
+        return {
+          success: true,
+          mock: true,
+          warning: 'applications_table_missing',
+          data: [
+            {
+              id: 1,
+              name: "Rahul Sharma (Demo)",
+              email: "rahul.sharma@example.com",
+              phone: "+91 98765 88990",
+              designation: "Frontend Developer",
+              resume_url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+              created_at: new Date(Date.now() - 3600000 * 2).toISOString()
+            },
+            {
+              id: 2,
+              name: "Priya Patel (Demo)",
+              email: "priya.ux@designstudio.com",
+              phone: "+91 91234 44556",
+              designation: "UI/UX Designer",
+              resume_url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+              created_at: new Date(Date.now() - 3600000 * 18).toISOString()
+            }
+          ]
+        };
+      }
+      throw new Error(`Failed to fetch applications: ${error.message}`);
+    }
+
+    return { success: true, data };
+  } catch (err) {
+    console.error('Fetch applications catch block (falling back to mock):', err);
+    return {
+      success: true,
+      mock: true,
+      data: [
+        {
+          id: 1,
+          name: "Rahul Sharma (Demo Fallback)",
+          email: "rahul.sharma@example.com",
+          phone: "+91 98765 88990",
+          designation: "Frontend Developer",
+          resume_url: "#",
+          created_at: new Date(Date.now() - 3600000 * 2).toISOString()
+        }
+      ]
+    };
+  }
+}
+
+
 
 
