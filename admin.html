@@ -747,7 +747,7 @@
         // Try logging in via Supabase Auth (automatically mapping username to email if needed)
         let emailVal = userVal;
         if (!emailVal.includes('@')) {
-          emailVal = `${emailVal}@nwtinfotech.online`;
+          emailVal = `${emailVal}@nwtinfotech.com`;
         }
         const { data, error } = await client.auth.signInWithPassword({
           email: emailVal,
