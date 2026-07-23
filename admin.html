@@ -757,17 +757,10 @@
         if (!error && data.user) {
           authenticated = true;
         } else {
-          // If Supabase authentication fails, check if we should fallback to offline admin hashes
-          const userHash = await sha256(userVal);
-          const passHash = await sha256(passVal);
-          if (userHash === USERNAME_HASH && passHash === PASSWORD_HASH) {
-            authenticated = true;
-          } else {
-            console.error('Supabase Auth error:', error);
-            errorEl.textContent = error ? error.message : 'Invalid credentials.';
-            errorEl.style.display = 'block';
-            return;
-          }
+          console.error('Supabase Auth error:', error);
+          errorEl.textContent = error ? error.message : 'Invalid credentials.';
+          errorEl.style.display = 'block';
+          return;
         }
       } else {
         // Fallback for Demo Mode (offline local hashes)
